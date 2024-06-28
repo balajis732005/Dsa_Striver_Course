@@ -1,15 +1,15 @@
 package LINKED_LIST;
 
-public class Node {
+public class SingleNode {
 
     int data;
-    Node next;
+    SingleNode next;
 
-    Node(int data) {
+    SingleNode(int data) {
         this.data = data;
     }
 
-    Node(int data, Node next) {
+    SingleNode(int data, SingleNode next) {
         this.data = data;
         this.next = next;
     }
