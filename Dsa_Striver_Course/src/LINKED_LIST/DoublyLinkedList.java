@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class DoublyLinkedList {
 
+    DoublyLinkedList(){
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int[] arr = {1,2,3,4,5,6,7,8,9,10};
@@ -27,35 +30,35 @@ public class DoublyLinkedList {
         System.out.print("AFTER DELETION IN LINKED LIST : ");
         traverseLinkedList(head);
         System.out.println();
-//        System.out.print("Enter a value to Delete : ");
-//        int valueToDelete = in.nextInt();
-//        head=deleteNodeByValue(head,valueToDelete);
-//        System.out.print("AFTER DELETION IN LINKED LIST : ");
-//        traverseLinkedList(head);
-//        System.out.println();
-//        System.out.print("Enter a value to Insert At Head : ");
-//        int valueT0InsertAtHead = in.nextInt();
-//        head=insertHead(head,valueT0InsertAtHead);
-//        System.out.print("AFTER INSERTION IN LINKED LIST : ");
-//        traverseLinkedList(head);
-//        System.out.println();
-//        System.out.print("Enter a value to Insert At Tail : ");
-//        int valueT0InsertAtTail = in.nextInt();
-//        head=insertTail(head,valueT0InsertAtTail);
-//        System.out.print("AFTER INSERTION IN LINKED LIST : ");
-//        traverseLinkedList(head);
-//        System.out.println();
-//        System.out.print("Enter a value to Insert At Tail : ");
-//        int valueT0InsertAtBetween = in.nextInt();
-//        System.out.print("Enter a position to Insert : ");
-//        int positionToInsertBetween = in.nextInt();
-//        head=insertBetween(head,positionToInsertBetween,valueT0InsertAtBetween);
-//        System.out.print("AFTER INSERTION IN LINKED LIST : ");
-//        traverseLinkedList(head);
-//        System.out.println();
+        System.out.print("Enter a value to Delete : ");
+        int valueToDelete = in.nextInt();
+        head=deleteNodeByValue(head,valueToDelete);
+        System.out.print("AFTER DELETION IN LINKED LIST : ");
+        traverseLinkedList(head);
+        System.out.println();
+        System.out.print("Enter a value to Insert At Head : ");
+        int valueT0InsertAtHead = in.nextInt();
+        head=insertHead(head,valueT0InsertAtHead);
+        System.out.print("AFTER INSERTION IN LINKED LIST : ");
+        traverseLinkedList(head);
+        System.out.println();
+        System.out.print("Enter a value to Insert At Tail : ");
+        int valueT0InsertAtTail = in.nextInt();
+        head=insertTail(head,valueT0InsertAtTail);
+        System.out.print("AFTER INSERTION IN LINKED LIST : ");
+        traverseLinkedList(head);
+        System.out.println();
+        System.out.print("Enter a value to Insert Between : ");
+        int valueT0InsertAtBetween = in.nextInt();
+        System.out.print("Enter a position to Insert : ");
+        int positionToInsertBetween = in.nextInt();
+        head=insertBetween(head,positionToInsertBetween,valueT0InsertAtBetween);
+        System.out.print("AFTER INSERTION IN LINKED LIST : ");
+        traverseLinkedList(head);
+        System.out.println();
     }
 
-    private static DoubleNode arrayToLinkedList(int[] arr) {
+    public static DoubleNode arrayToLinkedList(int[] arr) {
         DoubleNode head = new DoubleNode(arr[0]);
         DoubleNode mover = head;
         for (int i = 1; i < arr.length; i++) {
@@ -67,7 +70,7 @@ public class DoublyLinkedList {
         return head;
     }
 
-    private static void traverseLinkedList(DoubleNode head){
+    public static void traverseLinkedList(DoubleNode head){
         DoubleNode temp=head;
         while(temp!=null){
             System.out.print(temp.data+" ");
@@ -119,6 +122,10 @@ public class DoublyLinkedList {
         int count=0;
         while(temp!=null){
             if(count==position){
+                if(temp.next==null){
+                    temp.prev.next=null;
+                    break;
+                }
                 temp.next.prev=temp.prev;
                 temp.prev.next=temp.next;
                 break;
@@ -139,8 +146,13 @@ public class DoublyLinkedList {
         }
         DoubleNode temp=head;
         while(temp!=null){
-            if(temp.next.data==value){
-                temp.next=temp.next.next;
+            if(temp.data==value){
+                if(temp.next==null){
+                    temp.prev.next=null;
+                    break;
+                }
+                temp.next.prev=temp.prev;
+                temp.prev.next=temp.next;
                 break;
             }
             temp=temp.next;
@@ -154,6 +166,7 @@ public class DoublyLinkedList {
         }
         DoubleNode newHead = new DoubleNode(data);
         newHead.next=head;
+        head.prev=newHead;
         return newHead;
     }
 
@@ -167,6 +180,7 @@ public class DoublyLinkedList {
         }
         DoubleNode newTail = new DoubleNode(data);
         temp.next=newTail;
+        newTail.prev=temp;
         return head;
     }
 
@@ -177,15 +191,23 @@ public class DoublyLinkedList {
         if(insertAt==0){
             DoubleNode newHead = new DoubleNode(data);
             newHead.next=head;
+            head.prev=newHead;
             return newHead;
         }
         int count=0;
         DoubleNode temp=head;
         while(temp!=null){
-            if(count==insertAt-1){
+            if(count==insertAt){
                 DoubleNode newDoubleNode = new DoubleNode(data);
-                newDoubleNode.next=temp.next;
-                temp.next= newDoubleNode;
+                if(temp.next==null){
+                    newDoubleNode.prev=temp;
+                    temp.next=newDoubleNode;
+                    break;
+                }
+                temp.prev.next=newDoubleNode;
+                newDoubleNode.prev=temp.prev;
+                newDoubleNode.next=temp;
+                temp.prev= newDoubleNode;
                 break;
             }
             count++;

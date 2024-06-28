@@ -45,7 +45,7 @@ public class SinglyLinkedList {
         System.out.print("AFTER INSERTION IN LINKED LIST : ");
         traverseLinkedList(head);
         System.out.println();
-        System.out.print("Enter a value to Insert At Tail : ");
+        System.out.print("Enter a value to Insert Between: ");
         int valueT0InsertAtBetween = in.nextInt();
         System.out.print("Enter a position to Insert : ");
         int positionToInsertBetween = in.nextInt();
