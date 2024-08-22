@@ -6,14 +6,18 @@ public class SinglyLinkedList {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int[] arr = {1,2,3,4,5,6,7,8,9,10};
+        int[] arr = {5,4,2,1};
         SingleNode head = arrayToLinkedList(arr);
         System.out.print("TRAVERSE IN LINKED LIST : ");
         traverseLinkedList(head);
         System.out.println();
         int length=lengthOfLinkedList(head);
         System.out.println("LENGTH : "+length);
+        head=halfReverse(head);
+        System.out.print("TRAVERSE IN LINKED LIST : ");
+        traverseLinkedList(head);
         head=deleteHead(head);
+        System.out.println();
         System.out.print("HEAD DELETED IN LINKED LIST : ");
         traverseLinkedList(head);
         System.out.println();
@@ -187,6 +191,39 @@ public class SinglyLinkedList {
             count++;
             temp=temp.next;
         }
+        return head;
+    }
+
+    private static SingleNode halfReverse(SingleNode head) {
+        SingleNode temp=head;
+        int length=0;
+        while(temp!=null){
+            length++;
+            temp=temp.next;
+        }
+        SingleNode mid=head;
+        SingleNode prevmid=null;
+        int count=0;
+        while(count<(length/2)){
+            if(count==(length/2)-1){
+                prevmid=mid;
+            }
+            mid=mid.next;
+            count++;
+        }
+        System.out.println(mid.data);
+        System.out.println("p:"+prevmid.data);
+        SingleNode one=mid;
+        SingleNode two=mid.next;
+        while(two!=null){
+            SingleNode three=two.next;
+            two.next=one;
+            one=two;
+            two=three;
+        }
+        System.out.println(one.data);
+        prevmid.next=one;
+        mid.next=null;
         return head;
     }
 
