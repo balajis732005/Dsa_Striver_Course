@@ -10,7 +10,7 @@ INFIX TO PREFIX CONVERSION:
 }
 3)Reverse the Final Answer
 
-TIME COMPLEXITY : O(N) + O(N)
+TIME COMPLEXITY : O(N/2) + O(N/2) + O(2N) + O(3N)
 SPACE COMPLEXITY : O(N) + O(N)
 
  */
